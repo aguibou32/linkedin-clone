@@ -23,3 +23,9 @@ npx create-react-app --template redux
 
 
 https://www.flaticon.com/svg/static/icons/svg/174/174857.svg
+
+
+
+
+
+https://compassionate-leaky-e9b16b.netlify.app/images/IG_Sonny.jpeg"
