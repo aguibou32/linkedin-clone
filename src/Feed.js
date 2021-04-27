@@ -8,33 +8,37 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
 import Post from "./Post";
 import { db } from "./firebase";
-import firebase from 'firebase';
+import firebase from "firebase";
 
 function Feed() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    db.collection("posts").onSnapshot((snapshot) =>
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
   }, []);
 
-  sendPost = (e) => {
+  const sendPost = (e) => {
     e.preventDefault();
 
     db.collection("posts").add({
       name: "Jonh",
       description: "description test",
       message: input,
-      photoUrl:"",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp() // If we use the server timestamp, everyone gets the same timestamp
-    })}
+      photoUrl: "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(), // If we use the server timestamp, everyone gets the same timestamp
+    });
+
+    setInput("");
   };
 
   return (
@@ -64,16 +68,19 @@ function Feed() {
         </div>
       </div>
 
-      {posts.map((post) => (
-        <Post />
-      ))}
-
-      <Post
-        name="Jonh"
-        description="Description Test"
-        message="Just started react 3 months ago"
-      />
+      {posts.map(
+        ({ id, data: { name, description, message, photoUrl, timestamp } }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        )
+      )}
     </div>
   );
 }
+
 export default Feed;

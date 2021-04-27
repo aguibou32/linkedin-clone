@@ -19,8 +19,8 @@ function Sidebar() {
           alt=""
         />
         <Avatar className="sidebar__avatar" />
-        <h2>Jonh</h2>
-        <h3>jonh@gdoe.com</h3>
+        <h2>Balia</h2>
+        <h3>balia@jeppe_boys.com</h3>
       </div>
 
       <div className="sidebar__stats">
