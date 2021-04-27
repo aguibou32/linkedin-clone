@@ -1,17 +1,45 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "./Login.css";
+import { auth } from "./firebase";
+import { login } from "./features/userSlice";
 
 function Login() {
-  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [profilePic, setProfilePic] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const loginToApp = (e) => {
     e.preventDefault();
   };
 
   const register = () => {
-    console.log("test");
+    if (!name) {
+      console.log("Please enter full name");
+    }
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userAuth) => {
+        userAuth.user
+          .updateProfile({
+            displayName: name,
+            photoURL: profilePic,
+          })
+          .then(() => {
+            dispatch(
+              login({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                displayName: name,
+                photoUrl: profilePic,
+              })
+            );
+          });
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -30,7 +58,12 @@ function Login() {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <input placeholder="Profile Picture URL (Optional)" type="text" />
+        <input
+          placeholder="Profile Picture URL (Optional)"
+          type="text"
+          value={profilePic}
+          onChange={(e) => setProfilePic(e.target.value)}
+        />
         <input
           placeholder="Email"
           type="text"
@@ -43,10 +76,15 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Sign In</button>
+        <button type="submit" onClick={loginToApp}>
+          Sign In
+        </button>
       </form>
-      <p className="login__register" onClick={register}>
-        Not a member ? <span>Register Now</span>
+      <p>
+        Not a member ?{" "}
+        <span className="login__register" onClick={register}>
+          Register Now
+        </span>
       </p>
     </div>
   );
