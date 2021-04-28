@@ -22,7 +22,7 @@ function Login() {
             email: userAuth.user.email,
             uid: userAuth.user.uid,
             displayName: userAuth.user.displayName,
-            profileUrl: userAuth.user.profileUrl,
+            profileUrl: userAuth.user.photoURL,
           })
         );
       })
@@ -33,7 +33,6 @@ function Login() {
     if (!name) {
       console.log("Please enter full name");
     }
-
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userAuth) => {
@@ -48,7 +47,7 @@ function Login() {
                 email: userAuth.user.email,
                 uid: userAuth.user.uid,
                 displayName: name,
-                photoUrl: profilePic,
+                photoURL: profilePic,
               })
             );
           });
