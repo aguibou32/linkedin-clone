@@ -7,8 +7,19 @@ import SupervisorAccount from "@material-ui/icons/SupervisorAccount";
 import BusinessCenter from "@material-ui/icons/BusinessCenter";
 import ChatIcon from "@material-ui/icons/Chat";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import { useDispatch } from "react-redux";
+import { auth } from "./firebase";
+import { logout } from "./features/userSlice";
 
 function Header() {
+  const dispatch = useDispatch();
+
+  const logoutOfApp = () => {
+    dispatch(logout());
+
+    auth.signOut();
+  };
+
   return (
     <div className="header">
       <div className="header__left">
@@ -34,6 +45,7 @@ function Header() {
         <HeaderOption
           avatar="https://www.pngkit.com/png/full/128-1280585_user-icon-fa-fa-user-circle.png"
           title="me"
+          onClick={logoutOfApp}
         />
 
         <HeaderOption avatar="" />

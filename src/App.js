@@ -13,14 +13,15 @@ import Login from "./Login";
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    auth.onAuthStateChange((userAuth) => {
+    auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
         // user is logged in
         dispatch(
           login({
-            email: userAuth.user.email,
-            uid: userAuth.user.uid,
+            email: userAuth.email,
+            uid: userAuth.uid,
             displayName: userAuth.displayName,
             photoUrl: userAuth.profilePic,
           })
