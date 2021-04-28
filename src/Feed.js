@@ -9,10 +9,14 @@ import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
 import Post from "./Post";
 import { db } from "./firebase";
 import firebase from "firebase";
+import { selectUser } from "./features/userSlice";
+import { useSelector } from "react-redux";
 
 function Feed() {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
+
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     db.collection("posts")
@@ -31,10 +35,10 @@ function Feed() {
     e.preventDefault();
 
     db.collection("posts").add({
-      name: "Jonh",
-      description: "description test",
+      name: user.displayName,
+      description: user.email,
       message: input,
-      photoUrl: "",
+      photoUrl: user.photoUrl || "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(), // If we use the server timestamp, everyone gets the same timestamp
     });
 
