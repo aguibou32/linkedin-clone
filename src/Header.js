@@ -16,7 +16,6 @@ function Header() {
 
   const logoutOfApp = () => {
     dispatch(logout());
-
     auth.signOut();
   };
 

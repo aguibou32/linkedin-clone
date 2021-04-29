@@ -47,12 +47,13 @@ function Login() {
                 email: userAuth.user.email,
                 uid: userAuth.user.uid,
                 displayName: name,
-                photoURL: profilePic,
+                photoUrl: profilePic,
               })
             );
-          });
+          })
+          .catch((error) => alert(error));
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert(error));
   };
 
   return (

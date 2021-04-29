@@ -20,12 +20,4 @@ npx create-react-app --template redux
         - npm install @material-ui/core
         - npm install @material-ui/icons
 
-
-
-https://www.flaticon.com/svg/static/icons/svg/174/174857.svg
-
-
-
-
-
-https://compassionate-leaky-e9b16b.netlify.app/images/IG_Sonny.jpeg"
+3. The post animation we used is called react-flip-move, we used ref and converted the function to an arrow function

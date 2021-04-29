@@ -23,7 +23,7 @@ function App() {
             email: userAuth.email,
             uid: userAuth.uid,
             displayName: userAuth.displayName,
-            photoUrl: userAuth.profilePic,
+            photoUrl: userAuth.photoURL,
           })
         );
       } else {
@@ -42,9 +42,7 @@ function App() {
       ) : (
         <div className="app__body">
           <Sidebar />
-
           <Feed />
-
           <Widgets />
         </div>
       )}
